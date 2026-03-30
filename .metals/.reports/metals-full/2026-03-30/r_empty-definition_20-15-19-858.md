@@ -1,3 +1,14 @@
+error id: file:///C:/Users/User/OneDrive/Desktop/Buteelt/Biy%20daalt/flashcard-system/src/main/java/mn/num/flashcard/App.java:mn/num/flashcard/App#run().invertCards.
+file:///C:/Users/User/OneDrive/Desktop/Buteelt/Biy%20daalt/flashcard-system/src/main/java/mn/num/flashcard/App.java
+empty definition using pc, found symbol in pc: mn/num/flashcard/App#run().invertCards.
+empty definition using semanticdb
+empty definition using fallback
+non-local guesses:
+
+offset: 1704
+uri: file:///C:/Users/User/OneDrive/Desktop/Buteelt/Biy%20daalt/flashcard-system/src/main/java/mn/num/flashcard/App.java
+text:
+```scala
 package mn.num.flashcard;
 
 import java.io.IOException;
@@ -48,7 +59,7 @@ public class App {
         String order = commandLine.getOptionValue("order", ORDER_ORIGINAL);
         validateOrder(order);
 
-        int repetitions = parseRepetitions(commandLine.getOptionValue("repetitions", "1"));
+        int @@repetitions = parseRepetitions(commandLine.getOptionValue("repetitions", "1"));
         boolean invertCards = commandLine.hasOption("invertCards");
 
         List<Card> cards = loadCards(Path.of(positionalArgs[0]));
@@ -196,3 +207,10 @@ public class App {
         }
     }
 }
+
+```
+
+
+#### Short summary: 
+
+empty definition using pc, found symbol in pc: mn/num/flashcard/App#run().invertCards.
