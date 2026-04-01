@@ -213,3 +213,66 @@ org.eclipse.lsp4j.jsonrpc.ResponseErrorException: Request window/showMessageRequ
 	at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:642)
 	at java.lang.Thread.run(Thread.java:1575)
 
+2026.03.30 20:31:17 INFO  Started: Metals version 1.6.6 in folders 'C:\Users\User\OneDrive\Desktop\Buteelt\Biy daalt' for client Visual Studio Code 1.113.0.
+2026.03.30 20:31:17 INFO  time: initialize in 0.15s
+2026.03.30 20:31:17 INFO  Memory monitor started
+2026.03.30 20:31:21 WARN  Using H2 2.4.240 which is newer than the version Flyway has been verified with. The latest verified version of H2 is 2.3.232.
+2026.03.30 20:31:36 WARN  no build target for: C:\Users\User\OneDrive\Desktop\Buteelt\Biy daalt\flashcard-system\src\main\java\mn\num\flashcard\RecentMistakesFirstSorter.java
+2026.03.30 20:31:36 WARN  no build target for: C:\Users\User\OneDrive\Desktop\Buteelt\Biy daalt\flashcard-system\src\main\java\mn\num\flashcard\Card.java
+2026.03.30 20:31:36 WARN  no build target for: C:\Users\User\OneDrive\Desktop\Buteelt\Biy daalt\flashcard-system\src\main\java\mn\num\flashcard\CardOrganizer.java
+2026.03.30 20:31:36 WARN  no build target for: C:\Users\User\OneDrive\Desktop\Buteelt\Biy daalt\flashcard-system\src\main\java\mn\num\flashcard\App.java
+2026.03.30 20:31:38 WARN  Running javac-semanticdb failed for file:///C:/Users/User/OneDrive/Desktop/Buteelt/Biy%20daalt/flashcard-system/src/main/java/mn/num/flashcard/RecentMistakesFirstSorter.java. Output:
+
+2026.03.30 20:31:38 WARN  Running javac-semanticdb failed for file:///C:/Users/User/OneDrive/Desktop/Buteelt/Biy%20daalt/flashcard-system/src/main/java/mn/num/flashcard/CardOrganizer.java. Output:
+
+2026.03.30 20:31:39 WARN  Running javac-semanticdb failed for file:///C:/Users/User/OneDrive/Desktop/Buteelt/Biy%20daalt/flashcard-system/src/main/java/mn/num/flashcard/App.java. Output:
+
+2026.03.30 20:31:39 WARN  Running javac-semanticdb failed for file:///C:/Users/User/OneDrive/Desktop/Buteelt/Biy%20daalt/flashcard-system/src/main/java/mn/num/flashcard/Card.java. Output:
+
+2026.03.30 20:31:44 WARN  no build target for: C:\Users\User\OneDrive\Desktop\Buteelt\Biy daalt\flashcard-system\src\test\java\mn\num\flashcard\AppTest.java
+2026.03.30 20:31:44 WARN  Running javac-semanticdb failed for file:///C:/Users/User/OneDrive/Desktop/Buteelt/Biy%20daalt/flashcard-system/src/test/java/mn/num/flashcard/AppTest.java. Output:
+
+2026.03.30 20:32:07 INFO  no build target found for C:\Users\User\OneDrive\Desktop\Buteelt\Biy daalt\flashcard-system\src\main\java\mn\num\flashcard\App.java. Using fallback presentation compiler.
+2026.03.30 20:32:08 INFO  no build target found for C:\Users\User\OneDrive\Desktop\Buteelt\Biy daalt\flashcard-system\src\main\java\mn\num\flashcard\CardOrganizer.java. Using fallback presentation compiler.
+2026.03.30 20:32:08 INFO  no build target found for C:\Users\User\OneDrive\Desktop\Buteelt\Biy daalt\flashcard-system\src\main\java\mn\num\flashcard\RecentMistakesFirstSorter.java. Using fallback presentation compiler.
+2026.03.30 20:32:08 INFO  no build target found for C:\Users\User\OneDrive\Desktop\Buteelt\Biy daalt\flashcard-system\src\test\java\mn\num\flashcard\AppTest.java. Using fallback presentation compiler.
+2026.03.30 20:32:34 INFO  no build target found for C:\Users\User\OneDrive\Desktop\Buteelt\Biy daalt\flashcard-system\src\main\java\mn\num\flashcard\App.java. Using fallback presentation compiler.
+2026.03.30 20:32:34 INFO  no build target found for C:\Users\User\OneDrive\Desktop\Buteelt\Biy daalt\flashcard-system\src\main\java\mn\num\flashcard\CardOrganizer.java. Using fallback presentation compiler.
+2026.03.30 20:32:34 INFO  no build target found for C:\Users\User\OneDrive\Desktop\Buteelt\Biy daalt\flashcard-system\src\main\java\mn\num\flashcard\RecentMistakesFirstSorter.java. Using fallback presentation compiler.
+2026.03.30 20:32:34 INFO  no build target found for C:\Users\User\OneDrive\Desktop\Buteelt\Biy daalt\flashcard-system\src\test\java\mn\num\flashcard\AppTest.java. Using fallback presentation compiler.
+2026.03.30 20:33:22 INFO  no build target found for C:\Users\User\OneDrive\Desktop\Buteelt\Biy daalt\flashcard-system\src\main\java\mn\num\flashcard\App.java. Using fallback presentation compiler.
+2026.03.30 20:33:22 INFO  no build target found for C:\Users\User\OneDrive\Desktop\Buteelt\Biy daalt\flashcard-system\src\main\java\mn\num\flashcard\App.java. Using fallback presentation compiler.
+2026.03.30 20:33:23 INFO  no build target found for C:\Users\User\OneDrive\Desktop\Buteelt\Biy daalt\flashcard-system\src\main\java\mn\num\flashcard\CardOrganizer.java. Using fallback presentation compiler.
+2026.03.30 20:33:23 INFO  no build target found for C:\Users\User\OneDrive\Desktop\Buteelt\Biy daalt\flashcard-system\src\main\java\mn\num\flashcard\RecentMistakesFirstSorter.java. Using fallback presentation compiler.
+2026.03.30 20:33:23 INFO  no build target found for C:\Users\User\OneDrive\Desktop\Buteelt\Biy daalt\flashcard-system\src\test\java\mn\num\flashcard\AppTest.java. Using fallback presentation compiler.
+2026.03.30 20:33:29 INFO  no build target found for C:\Users\User\OneDrive\Desktop\Buteelt\Biy daalt\flashcard-system\src\main\java\mn\num\flashcard\App.java. Using fallback presentation compiler.
+2026.03.30 20:33:30 INFO  no build target found for C:\Users\User\OneDrive\Desktop\Buteelt\Biy daalt\flashcard-system\src\main\java\mn\num\flashcard\CardOrganizer.java. Using fallback presentation compiler.
+2026.03.30 20:33:30 INFO  no build target found for C:\Users\User\OneDrive\Desktop\Buteelt\Biy daalt\flashcard-system\src\main\java\mn\num\flashcard\RecentMistakesFirstSorter.java. Using fallback presentation compiler.
+2026.03.30 20:33:30 INFO  no build target found for C:\Users\User\OneDrive\Desktop\Buteelt\Biy daalt\flashcard-system\src\test\java\mn\num\flashcard\AppTest.java. Using fallback presentation compiler.
+2026.03.30 20:34:35 INFO  no build target found for C:\Users\User\OneDrive\Desktop\Buteelt\Biy daalt\flashcard-system\src\main\java\mn\num\flashcard\Card.java. Using fallback presentation compiler.
+2026.03.30 20:34:35 INFO  no build target found for C:\Users\User\OneDrive\Desktop\Buteelt\Biy daalt\flashcard-system\src\main\java\mn\num\flashcard\CardOrganizer.java. Using fallback presentation compiler.
+2026.03.30 20:34:35 INFO  no build target found for C:\Users\User\OneDrive\Desktop\Buteelt\Biy daalt\flashcard-system\src\main\java\mn\num\flashcard\RecentMistakesFirstSorter.java. Using fallback presentation compiler.
+2026.03.30 20:34:35 INFO  no build target found for C:\Users\User\OneDrive\Desktop\Buteelt\Biy daalt\flashcard-system\src\main\java\mn\num\flashcard\App.java. Using fallback presentation compiler.
+2026.03.30 20:34:44 INFO  no build target found for C:\Users\User\OneDrive\Desktop\Buteelt\Biy daalt\flashcard-system\src\test\java\mn\num\flashcard\AppTest.java. Using fallback presentation compiler.
+2026.03.30 20:36:00 WARN  no build target for: C:\Users\User\OneDrive\Desktop\Buteelt\Biy daalt\flashcard-system\src\main\java\mn\num\flashcard\App.java
+2026.03.30 20:36:00 WARN  Running javac-semanticdb failed for file:///C:/Users/User/OneDrive/Desktop/Buteelt/Biy%20daalt/flashcard-system/src/main/java/mn/num/flashcard/App.java. Output:
+
+2026.03.30 20:36:00 INFO  no build target found for C:\Users\User\OneDrive\Desktop\Buteelt\Biy daalt\flashcard-system\src\main\java\mn\num\flashcard\App.java. Using fallback presentation compiler.
+2026.03.30 20:36:00 INFO  no build target found for C:\Users\User\OneDrive\Desktop\Buteelt\Biy daalt\flashcard-system\src\main\java\mn\num\flashcard\App.java. Using fallback presentation compiler.
+2026.03.30 20:36:00 WARN  no build target for: C:\Users\User\OneDrive\Desktop\Buteelt\Biy daalt\flashcard-system\src\main\java\mn\num\flashcard\App.java
+2026.03.30 20:36:01 WARN  Running javac-semanticdb failed for file:///C:/Users/User/OneDrive/Desktop/Buteelt/Biy%20daalt/flashcard-system/src/main/java/mn/num/flashcard/App.java. Output:
+
+2026.03.30 20:36:00 INFO  no build target found for C:\Users\User\OneDrive\Desktop\Buteelt\Biy daalt\flashcard-system\src\main\java\mn\num\flashcard\App.java. Using fallback presentation compiler.
+2026.03.30 20:37:28 WARN  no build target for: C:\Users\User\OneDrive\Desktop\Buteelt\Biy daalt\flashcard-system\src\main\java\mn\num\flashcard\App.java
+2026.03.30 20:37:28 WARN  Running javac-semanticdb failed for file:///C:/Users/User/OneDrive/Desktop/Buteelt/Biy%20daalt/flashcard-system/src/main/java/mn/num/flashcard/App.java. Output:
+
+2026.03.30 20:37:28 INFO  no build target found for C:\Users\User\OneDrive\Desktop\Buteelt\Biy daalt\flashcard-system\src\main\java\mn\num\flashcard\App.java. Using fallback presentation compiler.
+2026.03.30 20:37:29 INFO  no build target found for C:\Users\User\OneDrive\Desktop\Buteelt\Biy daalt\flashcard-system\src\main\java\mn\num\flashcard\App.java. Using fallback presentation compiler.
+2026.03.30 20:37:29 WARN  no build target for: C:\Users\User\OneDrive\Desktop\Buteelt\Biy daalt\flashcard-system\src\main\java\mn\num\flashcard\App.java
+2026.03.30 20:37:29 INFO  no build target found for C:\Users\User\OneDrive\Desktop\Buteelt\Biy daalt\flashcard-system\src\main\java\mn\num\flashcard\App.java. Using fallback presentation compiler.
+2026.03.30 20:37:28 WARN  Running javac-semanticdb failed for file:///C:/Users/User/OneDrive/Desktop/Buteelt/Biy%20daalt/flashcard-system/src/main/java/mn/num/flashcard/App.java. Output:
+
+2026.03.30 20:38:27 INFO  Shutting down server
+2026.03.30 20:38:27 INFO  Memory monitor stopped
+2026.03.30 20:38:27 INFO  shutting down Metals
+2026.03.30 20:38:27 INFO  Exiting server
