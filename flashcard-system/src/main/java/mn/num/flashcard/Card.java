@@ -52,4 +52,15 @@ public class Card {
     public int getCorrectCount() {
         return correctCount;
     }
+
+    /**
+     * Calculates the accuracy of attempts for this card.
+     * @return accuracy as a percentage (0-100), or 0 if no attempts.
+     */
+    public double getAccuracy() {
+        if (attemptCount == 0) {
+            return 0.0;
+        }
+        return (double) correctCount / attemptCount * 100.0;
+    }
 }
