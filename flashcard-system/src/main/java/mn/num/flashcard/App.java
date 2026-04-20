@@ -53,6 +53,7 @@ public class App {
 
         int repetitions = parseRepetitions(commandLine.getOptionValue("repetitions", "1"));
         boolean invertCards = commandLine.hasOption("invertCards");
+        boolean showStats = commandLine.hasOption("showStats");
 
         List<Card> cards = loadCards(Path.of(positionalArgs[0]));
         if (cards.isEmpty()) {
@@ -71,6 +72,10 @@ public class App {
         }
 
         printAchievements(cards, lastRoundAllCorrectWithoutMistake);
+
+        if (showStats) {
+            printStats(cards);
+        }
     }
 
     private static Options buildOptions() {
@@ -91,6 +96,10 @@ public class App {
         options.addOption(Option.builder()
                 .longOpt("invertCards")
                 .desc("Ask with the answer side and expect the question side.")
+                .build());
+        options.addOption(Option.builder()
+                .longOpt("showStats")
+                .desc("Show statistics for each card at the end.")
                 .build());
         return options;
     }
@@ -201,6 +210,14 @@ public class App {
         boolean hasPerfectCard = cards.stream().anyMatch(card -> card.getAccuracy() == 100.0 && card.getAttemptCount() > 0);
         if (hasPerfectCard) {
             System.out.println("Congratulations! Achievement unlocked: PERFECT");
+        }
+    }
+
+    private static void printStats(List<Card> cards) {
+        System.out.println("\nCard Statistics:");
+        for (Card card : cards) {
+            System.out.printf("Question: %s | Attempts: %d | Correct: %d | Accuracy: %.1f%%\n",
+                card.getQuestion(), card.getAttemptCount(), card.getCorrectCount(), card.getAccuracy());
         }
     }
 }
