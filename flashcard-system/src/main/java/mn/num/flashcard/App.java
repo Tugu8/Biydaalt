@@ -197,5 +197,10 @@ public class App {
         if (hasConfidentCard) {
             System.out.println("Congratulations! Achievement unlocked: CONFIDENT");
         }
+
+        boolean hasPerfectCard = cards.stream().anyMatch(card -> card.getAccuracy() == 100.0 && card.getAttemptCount() > 0);
+        if (hasPerfectCard) {
+            System.out.println("Congratulations! Achievement unlocked: PERFECT");
+        }
     }
 }
