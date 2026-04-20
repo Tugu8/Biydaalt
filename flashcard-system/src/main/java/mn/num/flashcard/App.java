@@ -18,6 +18,9 @@ public class App {
     private static final String ORDER_ORIGINAL = "original";
     private static final String ORDER_RECENT_MISTAKES_FIRST = "recent-mistakes-first";
 
+    /**
+     * Main entry point for the flashcard application.
+     */
     public static void main(String[] args) {
         try {
             run(args);
