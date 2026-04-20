@@ -3,6 +3,9 @@ package mn.num.flashcard;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * Sorts cards to prioritize those that were wrong in the last round.
+ */
 public class RecentMistakesFirstSorter implements CardOrganizer {
     @Override
     public List<Card> organize(List<Card> cards) {
