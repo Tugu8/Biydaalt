@@ -1,5 +1,8 @@
 package mn.num.flashcard;
 
+/**
+ * Represents a flashcard with a question and answer.
+ */
 public class Card {
     private final String question;
     private final String answer;
