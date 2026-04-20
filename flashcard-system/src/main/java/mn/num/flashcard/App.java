@@ -25,11 +25,11 @@ public class App {
         try {
             run(args);
         } catch (ParseException exception) {
-            System.err.println("Argument error: " + exception.getMessage());
+            System.err.println("Error parsing command line arguments: " + exception.getMessage());
             printHelp(buildOptions());
             System.exit(1);
         } catch (IOException exception) {
-            System.err.println("I/O error: " + exception.getMessage());
+            System.err.println("I/O error occurred: " + exception.getMessage());
             System.exit(1);
         }
     }
