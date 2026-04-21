@@ -167,6 +167,7 @@ public class App {
             boolean cardHadMistake = false;
             boolean isCorrect = false;
             card.setWasWrongInLastRound(false);
+            int wrongAttempts = 0;
 
             while (!isCorrect) {
                 System.out.print(prompt + ": ");
@@ -178,7 +179,12 @@ public class App {
                     System.out.println("Correct!");
                 } else {
                     cardHadMistake = true;
+                    wrongAttempts++;
                     System.out.println("Wrong. Try again.");
+                    String hint = generateHint(expectedAnswer, wrongAttempts);
+                    if (!hint.isEmpty()) {
+                        System.out.println("Hint: " + hint);
+                    }
                 }
             }
 
@@ -190,6 +196,20 @@ public class App {
         }
 
         return allCorrectWithoutMistake;
+    }
+
+    private static String generateHint(String answer, int level) {
+        if (level <= 0) return "";
+        char[] chars = answer.toCharArray();
+        StringBuilder hint = new StringBuilder();
+        for (int i = 0; i < chars.length; i++) {
+            if (i < level) {
+                hint.append(chars[i]);
+            } else {
+                hint.append('_');
+            }
+        }
+        return hint.toString();
     }
 
     private static void printAchievements(List<Card> cards, boolean lastRoundAllCorrectWithoutMistake) {
