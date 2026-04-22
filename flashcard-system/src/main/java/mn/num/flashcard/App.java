@@ -5,7 +5,6 @@ import java.nio.file.Files;
 import java.nio.file.StandardOpenOption;
 import java.nio.file.Path;
 
-
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
@@ -21,9 +20,6 @@ public class App {
     private static final String ORDER_ORIGINAL = "original";
     private static final String ORDER_RECENT_MISTAKES_FIRST = "recent-mistakes-first";
 
-    /**
-     * Main entry point for the flashcard application.
-     */
     public static void main(String[] args) {
         try {
             run(args);
@@ -53,28 +49,31 @@ public class App {
 
         Path cardsFilePath = Path.of(positionalArgs[0]);
 
-        try (Scanner scanner = new Scanner(System.in)) {
-            while (true) {
-                System.out.println("\n=== Flashcard System ===");
-                System.out.println("1. Answer questions");
-                System.out.println("2. Add questions");
-                System.out.println("3. Exit");
-                System.out.print("Enter your choice: ");
+        Scanner scanner = new Scanner(System.in);
 
-                String choice = scanner.nextLine().trim();
+        while (true) {
+            System.out.println("\n=== Flashcard System ===");
+            System.out.println("1. Answer questions");
+            System.out.println("2. Add questions");
+            System.out.println("3. Exit");
+            System.out.print("Enter your choice: ");
 
-                if ("1".equals(choice)) {
-                    runQuiz(cardsFilePath, commandLine, scanner);
-                } else if ("2".equals(choice)) {
-                    addQuestion(cardsFilePath, scanner);
-                } else if ("3".equals(choice)) {
-                    System.out.println("Goodbye!");
-                    break;
-                } else {
-                    System.out.println("Invalid choice. Please enter 1, 2, or 3.");
-                }
+            if (!scanner.hasNextLine()) break;
+            String choice = scanner.nextLine().trim();
+
+            if ("1".equals(choice)) {
+                runQuiz(cardsFilePath, commandLine, scanner);
+            } else if ("2".equals(choice)) {
+                addQuestion(cardsFilePath, scanner);
+            } else if ("3".equals(choice)) {
+                System.out.println("Goodbye!");
+                break;
+            } else {
+                System.out.println("Invalid choice. Please enter 1, 2, or 3.");
             }
         }
+
+        scanner.close();
     }
 
     private static Options buildOptions() {
@@ -129,7 +128,6 @@ public class App {
         if (ORDER_RECENT_MISTAKES_FIRST.equals(order)) {
             return new RecentMistakesFirstSorter();
         }
-
         return cards -> new ArrayList<>(cards);
     }
 
@@ -155,64 +153,34 @@ public class App {
         return cards;
     }
 
-    private static boolean runRound(List<Card> cards, Scanner scanner, boolean invertCards, int round) {
-        boolean allCorrectWithoutMistake = true;
-        System.out.println("Round " + round);
+    private static void runRound(List<Card> cards, Scanner scanner, boolean invertCards, int round) {
+        System.out.println("\nRound " + round);
 
         for (Card card : cards) {
             String prompt = invertCards ? card.getAnswer() : card.getQuestion();
             String expectedAnswer = invertCards ? card.getQuestion() : card.getAnswer();
 
-            boolean cardHadMistake = false;
-            boolean isCorrect = false;
-            card.setWasWrongInLastRound(false);
-            int wrongAttempts = 0;
+            System.out.print(prompt + ": ");
+            if (!scanner.hasNextLine()) return;
+            String userAnswer = scanner.nextLine().trim();
 
-            while (!isCorrect) {
-                System.out.print(prompt + ": ");
-                String userAnswer = scanner.nextLine().trim();
-                isCorrect = userAnswer.equalsIgnoreCase(expectedAnswer.trim());
-                card.recordAttempt(isCorrect);
+            boolean isCorrect = userAnswer.equalsIgnoreCase(expectedAnswer.trim());
+            card.recordAttempt(isCorrect);
 
-                if (isCorrect) {
-                    System.out.println("Correct!");
-                } else {
-                    cardHadMistake = true;
-                    wrongAttempts++;
-                    System.out.println("Wrong. Try again.");
-                    String hint = generateHint(expectedAnswer, wrongAttempts);
-                    if (!hint.isEmpty()) {
-                        System.out.println("Hint: " + hint);
-                    }
-                }
-            }
-
-            if (cardHadMistake) {
-                allCorrectWithoutMistake = false;
-            }
-
-            card.setWasWrongInLastRound(cardHadMistake);
-        }
-
-        return allCorrectWithoutMistake;
-    }
-
-    private static String generateHint(String answer, int level) {
-        if (level <= 0) return "";
-        char[] chars = answer.toCharArray();
-        StringBuilder hint = new StringBuilder();
-        for (int i = 0; i < chars.length; i++) {
-            if (i < level) {
-                hint.append(chars[i]);
+            if (isCorrect) {
+                System.out.println("Correct!");
+                card.setWasWrongInLastRound(false);
             } else {
-                hint.append('_');
+                System.out.println("Wrong!");
+                card.setWasWrongInLastRound(true);
             }
         }
-        return hint.toString();
     }
 
-    private static void printAchievements(List<Card> cards, boolean lastRoundAllCorrectWithoutMistake) {
-        if (lastRoundAllCorrectWithoutMistake) {
+    private static void printAchievements(List<Card> cards) {
+        boolean lastRoundAllCorrect = cards.stream().noneMatch(Card::wasWrongInLastRound);
+
+        if (lastRoundAllCorrect) {
             System.out.println("Congratulations! Achievement unlocked: CORRECT");
         }
 
@@ -255,14 +223,40 @@ public class App {
         }
 
         CardOrganizer organizer = createOrganizer(order);
-        boolean lastRoundAllCorrectWithoutMistake = false;
+
+        List<Card> lastRoundCards = new ArrayList<>(cards);
 
         for (int round = 1; round <= repetitions; round++) {
-            List<Card> cardsForRound = organizer.organize(cards);
-            lastRoundAllCorrectWithoutMistake = runRound(cardsForRound, scanner, invertCards, round);
+            lastRoundCards = organizer.organize(cards);
+            runRound(lastRoundCards, scanner, invertCards, round);
         }
 
-        printAchievements(cards, lastRoundAllCorrectWithoutMistake);
+        if (ORDER_RECENT_MISTAKES_FIRST.equals(order)) {
+            int extraRound = repetitions + 1;
+            while (true) {
+                // Collect wrong cards in reverse of last round's order so the most
+                // recently answered wrong card appears first in the next round.
+                List<Card> missedCards = new ArrayList<>();
+                for (int i = lastRoundCards.size() - 1; i >= 0; i--) {
+                    Card card = lastRoundCards.get(i);
+                    if (card.wasWrongInLastRound()) {
+                        missedCards.add(card);
+                    }
+                }
+
+                if (missedCards.isEmpty()) {
+                    System.out.println("\n\nБүх асуултыг зөв хариуллаа!");
+                    break;
+                }
+
+                System.out.println("\n--- Буруу хариулсан картуудыг давтаж байна ---");
+                List<Card> organizedMissed = organizer.organize(missedCards);
+                runRound(organizedMissed, scanner, invertCards, extraRound++);
+                lastRoundCards = organizedMissed;
+            }
+        }
+
+        printAchievements(cards);
 
         if (showStats) {
             printStats(cards);
@@ -271,6 +265,7 @@ public class App {
 
     private static void addQuestion(Path cardsFilePath, Scanner scanner) throws IOException {
         System.out.print("Enter your question: ");
+        if (!scanner.hasNextLine()) return;
         String question = scanner.nextLine().trim();
 
         if (question.isEmpty()) {
@@ -279,6 +274,7 @@ public class App {
         }
 
         System.out.print("Enter your answer: ");
+        if (!scanner.hasNextLine()) return;
         String answer = scanner.nextLine().trim();
 
         if (answer.isEmpty()) {
