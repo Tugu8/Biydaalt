@@ -45,7 +45,8 @@ java -jar target/flashcard-system-1.0-SNAPSHOT.jar cards.txt
 
 ```bash
 java -jar target/flashcard-system-1.0-SNAPSHOT.jar cards.txt --order recent-mistakes-first --repetitions 3 --showStats
-## Командын опционүүд 
+```
+##Командын опционүүд 
 
 1. **--help** — Тусламж харуулах
    ```bash
