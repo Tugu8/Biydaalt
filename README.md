@@ -10,70 +10,223 @@ A simple command-line flashcard application written in Java.
 - Achievements system
 - Statistics display
 
-## Usage
-
-### Running the Application
-
-#### 1. Using Maven
+## Build & Run
 
 ```bash
-mvn compile
-mvn exec:java -Dexec.mainClass="mn.num.flashcard.App" -Dexec.args="cards.txt"
+mvn clean package -DskipTests
+java -jar target/flashcard-system-1.0-SNAPSHOT.jar [options] cards.txt
 ```
 
-#### 2. Using Java Directly
+## Main Menu
+
+```
+=== Flashcard System ===
+1. Answer questions
+2. Add questions
+3. Exit
+Enter your choice:
+```
+
+---
+
+## Options
+
+### `--help` — Тусламж харуулах
 
 ```bash
-javac -d out src/main/java/mn/num/flashcard/*.java
-java -cp out mn.num.flashcard.App cards.txt
+java -jar target/flashcard-system-1.0-SNAPSHOT.jar --help cards.txt
 ```
 
-#### 3. Using JAR File
+```
+usage: java -jar flashcard-system.jar [options] <cards-file>
+ -h,--help                                     Show help information.
+    --invertCards                              Ask with the answer side
+                                               and expect the question
+                                               side.
+    --order <original|recent-mistakes-first>   Card order strategy.
+                                               Defaults to original.
+    --repetitions <count>                      Number of rounds to run.
+                                               Defaults to 1.
+    --showStats                                Show statistics for each
+                                               card at the end.
+```
+
+---
+
+### Default — Асуулт хариулах (зөв хариулсан үед)
 
 ```bash
 java -jar target/flashcard-system-1.0-SNAPSHOT.jar cards.txt
 ```
 
-## Options
+```
+Round 1
+What is Java?: Correct!
+2 * 2: Correct!
+Capital of Mongolia: Correct!
+what is my name: Correct!
+Congratulations! Achievement unlocked: CORRECT
+Congratulations! Achievement unlocked: PERFECT
+```
 
-- `--order`: Card order strategy (original|recent-mistakes-first)
-- `--repetitions`: Number of rounds
-- `--invertCards`: Swap question and answer
-- `--showStats`: Display statistics at the end
+---
 
-## Example Usage
+### Default — Асуулт хариулах (буруу хариулсан үед)
+
+```
+Round 1
+What is Java?: Wrong!
+2 * 2: Wrong!
+Capital of Mongolia: Wrong!
+what is my name: Wrong!
+```
+
+---
+
+### `--order original` — Файлын дараалалаар
 
 ```bash
-java -jar target/flashcard-system-1.0-SNAPSHOT.jar cards.txt --order recent-mistakes-first --repetitions 3 --showStats
+java -jar target/flashcard-system-1.0-SNAPSHOT.jar --order original cards.txt
 ```
-##Командын опционүүд 
 
-1. **--help** — Тусламж харуулах
-   ```bash
-   java -jar flashcard-system.jar --help
-   ```
+```
+Round 1
+What is Java?: Correct!
+2 * 2: Correct!
+Capital of Mongolia: Correct!
+what is my name: Correct!
+Congratulations! Achievement unlocked: CORRECT
+Congratulations! Achievement unlocked: PERFECT
+```
 
-2. **--order** — Картын дараалал
-   - Original (файлын дараалалаар):
-     ```bash
-     java -jar flashcard-system.jar --order original cards.txt
-     ```
-   - Буруу хариулсан картуудаа эхэнд:
-     ```bash
-     java -jar flashcard-system.jar --order recent-mistakes-first cards.txt
-     ```
+---
 
-3. **--repetitions** — Хэдэн раунд давтах
-   ```bash
-   java -jar flashcard-system.jar --repetitions 3 cards.txt
-   ```
+### `--order recent-mistakes-first` — Буруу хариулсан картуудыг эхэнд
 
-4. **--invertCards** — Асуулт/хариултыг урвуулах
-   ```bash
-   java -jar flashcard-system.jar --invertCards cards.txt
-   ```
+```bash
+java -jar target/flashcard-system-1.0-SNAPSHOT.jar --order recent-mistakes-first cards.txt
+```
 
-5. **--showStats** — Статистик харуулах
-   ```bash
-   java -jar flashcard-system.jar --showStats cards.txt
-   ```
+```
+Round 1
+What is Java?: Wrong!
+2 * 2: Wrong!
+Capital of Mongolia: Correct!
+what is my name: Correct!
+
+--- Буруу хариулсан картуудыг давтаж байна ---
+
+Round 2
+2 * 2: Correct!
+What is Java?: Correct!
+
+Бүх асуултыг зөв хариуллаа!
+Congratulations! Achievement unlocked: CORRECT
+Congratulations! Achievement unlocked: PERFECT
+```
+
+---
+
+### `--repetitions N` — Хэдэн раунд давтах
+
+```bash
+java -jar target/flashcard-system-1.0-SNAPSHOT.jar --repetitions 2 cards.txt
+```
+
+```
+Round 1
+What is Java?: Correct!
+2 * 2: Correct!
+Capital of Mongolia: Correct!
+what is my name: Correct!
+
+Round 2
+What is Java?: Correct!
+2 * 2: Correct!
+Capital of Mongolia: Correct!
+what is my name: Correct!
+Congratulations! Achievement unlocked: CORRECT
+Congratulations! Achievement unlocked: PERFECT
+```
+
+---
+
+### `--invertCards` — Асуулт/хариултыг урвуулах
+
+```bash
+java -jar target/flashcard-system-1.0-SNAPSHOT.jar --invertCards cards.txt
+```
+
+```
+Round 1
+A programming language: Correct!
+4: Correct!
+Ulaanbaatar: Correct!
+Tugu: Correct!
+Congratulations! Achievement unlocked: CORRECT
+Congratulations! Achievement unlocked: PERFECT
+```
+
+---
+
+### `--showStats` — Статистик харуулах
+
+```bash
+java -jar target/flashcard-system-1.0-SNAPSHOT.jar --showStats cards.txt
+```
+
+```
+Round 1
+What is Java?: Correct!
+2 * 2: Correct!
+Capital of Mongolia: Correct!
+what is my name: Correct!
+Congratulations! Achievement unlocked: CORRECT
+Congratulations! Achievement unlocked: PERFECT
+
+Card Statistics:
+Question: What is Java? | Attempts: 1 | Correct: 1 | Accuracy: 100.0%
+Question: 2 * 2 | Attempts: 1 | Correct: 1 | Accuracy: 100.0%
+Question: Capital of Mongolia | Attempts: 1 | Correct: 1 | Accuracy: 100.0%
+Question: what is my name | Attempts: 1 | Correct: 1 | Accuracy: 100.0%
+```
+
+---
+
+## Achievements
+
+| Achievement | Нөхцөл |
+|-------------|--------|
+| `CORRECT`   | Сүүлийн раундад бүх асуултыг зөв хариулсан |
+| `PERFECT`   | Ямар нэг картыг 100% зөв хариулсан |
+| `CONFIDENT` | Ямар нэг картыг 3 ба түүнээс дээш удаа зөв хариулсан |
+| `REPEAT`    | Ямар нэг картыг 5-аас дээш удаа оролдсон |
+
+---
+
+## Асуулт нэмэх (menu option 2)
+
+```
+Enter your question: What is 2+2?
+Enter your answer: 4
+Question added successfully!
+```
+
+---
+
+## Буруу сонголт хийсэн үед
+
+```
+Invalid choice. Please enter 1, 2, or 3.
+```
+
+---
+
+## cards.txt формат
+
+```
+Question | Answer
+What is Java? | A programming language
+2 * 2 | 4
+Capital of Mongolia | Ulaanbaatar
+```
