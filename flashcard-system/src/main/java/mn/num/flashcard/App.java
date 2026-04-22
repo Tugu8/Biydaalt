@@ -2,7 +2,10 @@ package mn.num.flashcard;
 
 import java.io.IOException;
 import java.nio.file.Files;
+import java.nio.file.StandardOpenOption;
 import java.nio.file.Path;
+
+
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
@@ -48,33 +51,29 @@ public class App {
             throw new ParseException("A single flashcard file path is required.");
         }
 
-        String order = commandLine.getOptionValue("order", ORDER_ORIGINAL);
-        validateOrder(order);
-
-        int repetitions = parseRepetitions(commandLine.getOptionValue("repetitions", "1"));
-        boolean invertCards = commandLine.hasOption("invertCards");
-        boolean showStats = commandLine.hasOption("showStats");
-
-        List<Card> cards = loadCards(Path.of(positionalArgs[0]));
-        if (cards.isEmpty()) {
-            System.out.println("No cards were loaded from the file.");
-            return;
-        }
-
-        CardOrganizer organizer = createOrganizer(order);
-        boolean lastRoundAllCorrectWithoutMistake = false;
+        Path cardsFilePath = Path.of(positionalArgs[0]);
 
         try (Scanner scanner = new Scanner(System.in)) {
-            for (int round = 1; round <= repetitions; round++) {
-                List<Card> cardsForRound = organizer.organize(cards);
-                lastRoundAllCorrectWithoutMistake = runRound(cardsForRound, scanner, invertCards, round);
+            while (true) {
+                System.out.println("\n=== Flashcard System ===");
+                System.out.println("1. Answer questions");
+                System.out.println("2. Add questions");
+                System.out.println("3. Exit");
+                System.out.print("Enter your choice: ");
+
+                String choice = scanner.nextLine().trim();
+
+                if ("1".equals(choice)) {
+                    runQuiz(cardsFilePath, commandLine, scanner);
+                } else if ("2".equals(choice)) {
+                    addQuestion(cardsFilePath, scanner);
+                } else if ("3".equals(choice)) {
+                    System.out.println("Goodbye!");
+                    break;
+                } else {
+                    System.out.println("Invalid choice. Please enter 1, 2, or 3.");
+                }
             }
-        }
-
-        printAchievements(cards, lastRoundAllCorrectWithoutMistake);
-
-        if (showStats) {
-            printStats(cards);
         }
     }
 
@@ -239,5 +238,57 @@ public class App {
             System.out.printf("Question: %s | Attempts: %d | Correct: %d | Accuracy: %.1f%%\n",
                 card.getQuestion(), card.getAttemptCount(), card.getCorrectCount(), card.getAccuracy());
         }
+    }
+
+    private static void runQuiz(Path cardsFilePath, CommandLine commandLine, Scanner scanner) throws IOException, ParseException {
+        String order = commandLine.getOptionValue("order", ORDER_ORIGINAL);
+        validateOrder(order);
+
+        int repetitions = parseRepetitions(commandLine.getOptionValue("repetitions", "1"));
+        boolean invertCards = commandLine.hasOption("invertCards");
+        boolean showStats = commandLine.hasOption("showStats");
+
+        List<Card> cards = loadCards(cardsFilePath);
+        if (cards.isEmpty()) {
+            System.out.println("No cards were loaded from the file.");
+            return;
+        }
+
+        CardOrganizer organizer = createOrganizer(order);
+        boolean lastRoundAllCorrectWithoutMistake = false;
+
+        for (int round = 1; round <= repetitions; round++) {
+            List<Card> cardsForRound = organizer.organize(cards);
+            lastRoundAllCorrectWithoutMistake = runRound(cardsForRound, scanner, invertCards, round);
+        }
+
+        printAchievements(cards, lastRoundAllCorrectWithoutMistake);
+
+        if (showStats) {
+            printStats(cards);
+        }
+    }
+
+    private static void addQuestion(Path cardsFilePath, Scanner scanner) throws IOException {
+        System.out.print("Enter your question: ");
+        String question = scanner.nextLine().trim();
+
+        if (question.isEmpty()) {
+            System.out.println("Question cannot be empty.");
+            return;
+        }
+
+        System.out.print("Enter your answer: ");
+        String answer = scanner.nextLine().trim();
+
+        if (answer.isEmpty()) {
+            System.out.println("Answer cannot be empty.");
+            return;
+        }
+
+        String cardLine = question + " | " + answer + "\n";
+        Files.writeString(cardsFilePath, cardLine, StandardOpenOption.APPEND);
+
+        System.out.println("Question added successfully!");
     }
 }

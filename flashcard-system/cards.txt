@@ -1,3 +1,4 @@
 What is Java? | A programming language
 2 + 2 | 4
 Capital of Mongolia | Ulaanbaatar
+what is my name | Tugu

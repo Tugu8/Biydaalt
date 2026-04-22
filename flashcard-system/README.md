@@ -25,3 +25,15 @@ java -cp target/classes mn.num.flashcard.App cards.txt
 - `--repetitions`: Number of rounds
 - `--invertCards`: Swap question and answer
 - `--showStats`: Display statistics at the end
+
+java -jar target/flashcard-system-1.0-SNAPSHOT.jar cards.txt
+
+1. Maven ашиглах
+
+mvn compile
+mvn exec:java -Dexec.mainClass="mn.num.flashcard.App" -Dexec.args="cards.txt"
+
+2. Java ажиллуулах
+
+javac -d out src/main/java/mn/num/flashcard/\*.java
+java -cp out mn.num.flashcard.App cards.txt
